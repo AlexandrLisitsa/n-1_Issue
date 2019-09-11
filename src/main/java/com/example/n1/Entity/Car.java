@@ -5,9 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.Data;
+import javax.persistence.ManyToOne;
 
-@Data
 @Entity
 public class Car {
 
@@ -19,9 +18,29 @@ public class Car {
   @Column(name = "color")
   String color;
 
+  @ManyToOne
+  CarShop shop;
+
   public Car() {}
 
-  public Car(String color) {
+  public Car(String color,CarShop carShop) {
+    this.shop=carShop;
     this.color = color;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  public CarShop getShop() {
+    return shop;
+  }
+
+  public void setShop(CarShop shop) {
+    this.shop = shop;
   }
 }

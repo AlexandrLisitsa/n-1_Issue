@@ -9,11 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import lombok.Data;
 
-@Data
 @Entity
 public class CarShop {
 
@@ -25,9 +22,24 @@ public class CarShop {
   @Column(name = "shop_name")
   String shopName;
 
-  @OneToMany(targetEntity = Car.class,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-  @JoinColumn(name = "car_shop_id")
+  @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "shop")
   List<Car> cars = new ArrayList<>();
 
   public CarShop() {}
+
+  public String getShopName() {
+    return shopName;
+  }
+
+  public void setShopName(String shopName) {
+    this.shopName = shopName;
+  }
+
+  public List<Car> getCars() {
+    return cars;
+  }
+
+  public void setCars(List<Car> cars) {
+    this.cars = cars;
+  }
 }

@@ -21,13 +21,14 @@ public class Launcher {
 
   @PostConstruct
   void test(){
-    List<Car> cars = new ArrayList<>();
-    cars.add(new Car("Red"));
-    cars.add(new Car("Green"));
-    cars.add(new Car("Blue"));
-
     CarShop carShop = new CarShop();
     carShop.setShopName("QWE");
+
+    List<Car> cars = new ArrayList<>();
+    cars.add(new Car("Red",carShop));
+    cars.add(new Car("Green",carShop));
+    cars.add(new Car("Blue",carShop));
+
     carShop.setCars(cars);
 
     CarShopRepo repo = context.getBean(CarShopRepo.class);
