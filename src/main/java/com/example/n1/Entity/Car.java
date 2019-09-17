@@ -1,11 +1,18 @@
 package com.example.n1.Entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Car {
@@ -18,14 +25,18 @@ public class Car {
   @Column(name = "color")
   String color;
 
-  @ManyToOne
-  CarShop shop;
+  @ManyToOne CarShop shop;
+
+  @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+  @JoinColumn(name = "car_id")
+  List<Wheel> wheels = new ArrayList<>();
 
   public Car() {}
 
-  public Car(String color,CarShop carShop) {
-    this.shop=carShop;
+  public Car(String color, CarShop carShop, Wheel... wheels) {
+    this.shop = carShop;
     this.color = color;
+    this.wheels.addAll(Arrays.asList(wheels));
   }
 
   public String getColor() {
